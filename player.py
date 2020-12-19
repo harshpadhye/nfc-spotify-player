@@ -4,3 +4,4 @@ To be integrated with NFC tags and iOS automation.
 
 @author: Harsh Padhye
 """
+print("test")
