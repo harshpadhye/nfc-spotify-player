@@ -36,9 +36,9 @@ def main():
     to_play = util.clean_string(request.args.get("name", None))
 
     # shuffles and starts playback of selected playlist
-    client.shuffle(state=True)
     client.start_playback(
         device_id=os.environ["MY_IPHONE_ID"], context_uri=playlist_map[to_play])
+    client.shuffle(state=True)
 
 
 if __name__ == "__main__":
