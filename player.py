@@ -22,9 +22,8 @@ def main():
     scope = "user-modify-playback-state playlist-read-private app-remote-control streaming"
 
     # authorize the client
-    token = spotipy.util.prompt_for_user_token(
-        username="harshpadhye", scope=scope)
-    client = spotipy.Spotify(auth=token)
+    auth_manager = SpotifyOAuth(scope=scope)
+    client = spotipy.Spotify(auth_manager=auth_manager)
 
     # dictionary mapping playlist names to playlist uris (str:str)
     playlist_map = {}
