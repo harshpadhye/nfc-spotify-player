@@ -22,7 +22,8 @@ def main():
     scope = "user-modify-playback-state playlist-read-private app-remote-control streaming"
 
     # authorize the client
-    auth_manager = util.MySpotifyOAuth(scope=scope, username="harshpadhye", db_url=os.environ["DATABASE_URL"])
+    auth_manager = util.MySpotifyOAuth(
+        scope=scope, username="harshpadhye", db_url=os.environ["DATABASE_URL"])
 
     client = spotipy.Spotify(auth_manager=auth_manager)
 
@@ -41,6 +42,9 @@ def main():
     client.start_playback(
         device_id=os.environ["MY_IPHONE_ID"], context_uri=playlist_map[to_play])
     client.shuffle(state=True)
+
+    # closes connection to the Postgres database
+    auth_manager.terminate_connection()
 
 
 if __name__ == "__main__":
