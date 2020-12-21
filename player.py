@@ -6,10 +6,10 @@ To be integrated with NFC tags and iOS automation.
 """
 
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
 from flask import Flask, request
 import gunicorn
 import os
+import psycopg2
 import util
 
 app = Flask(__name__)
@@ -22,8 +22,7 @@ def main():
     scope = "user-modify-playback-state playlist-read-private app-remote-control streaming"
 
     # authorize the client
-    print("reauthorize")
-    auth_manager = SpotifyOAuth(scope=scope, username="harshpadhye")
+    auth_manager = util.MySpotifyOAuth(scope=scope, username="harshpadhye", db_url=os.environ["DATABASE_URL"])
 
     client = spotipy.Spotify(auth_manager=auth_manager)
 
