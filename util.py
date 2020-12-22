@@ -40,9 +40,6 @@ class MySpotifyOAuth(SpotifyOAuth):
         token_info_string = self.psql.fetchone()[0]
         token_info = json.loads(token_info_string)
 
-        # logging for testing confirmation
-        print("retrieved from Postgres cache")
-
         # if scopes don't match, then bail
         if "scope" not in token_info or not self._is_scope_subset(
                 self.scope, token_info["scope"]):
@@ -62,9 +59,6 @@ class MySpotifyOAuth(SpotifyOAuth):
         # rewrites the first row with the new token info string
         self.psql.execute("UPDATE cache SET tokens=%s",
                           (json.dumps(token_info),))
-
-        # logging for testing confirmation
-        print("saving to Postgres cache")
 
         self.conn.commit()
 
